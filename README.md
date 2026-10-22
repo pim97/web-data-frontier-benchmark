@@ -129,6 +129,7 @@ npm run analyze -- --in official_results/benchmark-2026-09-16T01-03-47-074Z.json
 | nimble                             | `NIMBLE_API_KEY`                                          |
 | context_dev                        | `CONTEXT_DEV_API_KEY`                                     |
 | browserbase                        | `BROWSERBASE_API_KEY`                                     |
+| clearcote (hosted browsers)        | `CLEARCOTE_API_KEY`                                       |
 | string                             | `STRING_API_KEY`                                          |
 
 ## Programmatic use
@@ -193,6 +194,12 @@ the change.
     observable from this repo.
   Because String is in the second group, its result reflects our own server-side routing and is not
   parameter-comparable with a pinned-tier provider. Read it as the service's default behaviour.
+- Clearcote is a hosted browser, not a fetch API, so it renders by nature and its latency includes
+  starting a browser for every attempt. The adapter opens one session per attempt on the managed
+  residential pool (exit country from the site's ccTLD, the US otherwise) with the challenge service on,
+  connects over CDP, and returns the final top-level document's raw body and status — the server's HTML,
+  as the fetch APIs return it, not the rendered DOM. A block page that stays quiet with no challenge in
+  progress is retried on a fresh session (a new exit IP), at most twice, inside the same timeout.
 - See the per-file comments for the exact request shape and the credit cost it implies.
 - Running the full suite across many providers makes real, billable API calls. Start with `--attempts 1`
   and a small `--tests` subset.

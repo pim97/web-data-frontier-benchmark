@@ -2,6 +2,7 @@ import type { Provider } from "../types.js";
 import { apify } from "./apify.js";
 import { bright } from "./bright.js";
 import { browserbase } from "./browserbase.js";
+import { clearcote } from "./clearcote.js";
 import { contextDev } from "./context_dev.js";
 import { decodo } from "./decodo.js";
 import { firecrawl } from "./firecrawl.js";
@@ -23,6 +24,7 @@ export const PROVIDERS: Provider[] = [
   apify,
   bright,
   browserbase,
+  clearcote,
   contextDev,
   decodo,
   firecrawl,
